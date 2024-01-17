@@ -1,7 +1,7 @@
 import 'package:firstapp/bet.dart';
 import 'package:firstapp/login.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'navbarwidget.dart'; 
 
 void main() => runApp(const MyApp());
 
@@ -55,26 +55,18 @@ class _HomeState extends State<Home> {
                     ListTile(
                       title: const Text('Profile'),
                       onTap: () {
-                        // Update the state of the app
-                        // ...
-                        // Then close the drawer
                         Navigator.pop(context);
                       },
                     ),
                     ListTile(
                       title: const Text('Mes informations'),
                       onTap: () {
-                        // Update the state of the app
-                        // ...
-                        // Then close the drawer
                         Navigator.pop(context);
                       },
                     ),
                     ListTile(
-                      // leading: Icon(Icons.account_circle), Pour ajouter une icone si besoins 
                       title: const Text('Mes paris'),
                       onTap: () {
-                        // Action à exécuter lors du clic sur le bouton flottant
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => const BetPage()));
@@ -83,28 +75,20 @@ class _HomeState extends State<Home> {
                     ListTile(
                       title: const Text('Parrainage'),
                       onTap: () {
-                        // Update the state of the app
-                        // ...
-                        // Then close the drawer
                         Navigator.pop(context);
                       },
                     ),
                     ListTile(
                       title: const Text('Se connecter'),
                       onTap: () {
-                        // Update the state of the app
-                        // ...
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => const LoginPage()));
                       },
                     ),
-                    // Add more list items here if you want...
                   ],
                 ),
               ),
-          
-              // Align the logout and theme buttons to the bottom and left and right side of the drawer
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -131,24 +115,49 @@ class _HomeState extends State<Home> {
             ],
           ),
         ),
-        body: CarouselSlider(
-          options: CarouselOptions(height: 400.0),
-          items: ['assets/images/basket.jpg', 'assets/images/foot.jpg', 'assets/images/volley.jpg'].map((i) {
-            return Builder(
-              builder: (BuildContext context) {
-                return Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                  decoration: BoxDecoration(
-                    color: Colors.amber,
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Image.asset(i, fit: BoxFit.cover),
-                );
-              },
-            );
-          }).toList(),
-        ),
+        body: ListView(
+  children: [
+    GestureDetector(
+      onTap: () {
+        print('Image basket.jpg tapped!');
+        // Ajoutez votre logique de clic ici
+      },
+      child: Container(
+        height: 100, // Définissez la hauteur de l'image
+        width: 100, // Définissez la largeur de l'image
+        
+        margin: EdgeInsets.all(10.0),
+        child: Image.asset('assets/images/basket.jpg', fit: BoxFit.cover),
+      ),
+    ),
+    GestureDetector(
+      onTap: () {
+        print('Image foot.jpg tapped!');
+        // Ajoutez votre logique de clic ici
+      },
+      child: Container(
+        height: 100, // Définissez la hauteur de l'image
+        width: 100, // Définissez la largeur de l'image
+        margin: EdgeInsets.all(10.0),
+        child: Image.asset('assets/images/foot.jpg', fit: BoxFit.cover),
+      ),
+    ),
+    GestureDetector(
+      onTap: () {
+        print('Image volley.jpg tapped!');
+        // Ajoutez votre logique de clic ici
+      },
+      child: Container(
+        height: 100, // Définissez la hauteur de l'image
+        width: 100, // Définissez la largeur de l'image
+        margin: EdgeInsets.all(10.0),
+        child: Image.asset('assets/images/volley.jpg', fit: BoxFit.cover),
+      ),
+    ),
+    // Ajoutez plus de conteneurs pour plus d'images
+  ],
+),
+        bottomNavigationBar: NavBarWidget(), // Utilisez NavBarWidget comme barre de navigation inférieure
       ),
     );
   }
