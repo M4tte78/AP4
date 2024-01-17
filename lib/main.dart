@@ -1,3 +1,4 @@
+import 'package:firstapp/bet.dart';
 import 'package:firstapp/login.dart';
 import 'package:flutter/material.dart';
 
@@ -40,8 +41,8 @@ class _HomeState extends State<Home> {
                   padding: EdgeInsets.zero,
                   children: <Widget>[
                     const UserAccountsDrawerHeader(
-                      accountName: Text('User Name'),
-                      accountEmail: Text('user@example.com'),
+                      accountName: Text('John Doe'),
+                      accountEmail: Text('Johndoe@example.com'),
                       currentAccountPicture: CircleAvatar(
                         backgroundImage: AssetImage('assets/images/astronaut.png'), // image avatar
                       ),
@@ -63,6 +64,39 @@ class _HomeState extends State<Home> {
                         // Then close the drawer
                         Navigator.pop(context);
                       },
+                    ),
+                    ListTile(
+                      // leading: Icon(Icons.account_circle), Pour ajouter une icone si besoins 
+                      title: const Text('Mes paris'),
+                      onTap: () {
+                        // Action à exécuter lors du clic sur le bouton flottant
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => BetPage()));
+                      ;
+                      },
+                    ),
+                    ListTile(
+                      title: const Text('Parrainage'),
+                      onTap: () {
+                        // Update the state of the app
+                        // ...
+                        // Then close the drawer
+                        Navigator.pop(context);
+                      },
+                    ),
+                    ListTile(
+                      title: const Text('Se connecter'),
+                      onTap: () {
+                        // Update the state of the app
+                        // ...
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginPage()));Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginPage()));
+                      },
+                        // Then close the drawer
                     ),
                     // Add more list items here if you want...
                   ],
@@ -107,16 +141,7 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            // Action à exécuter lors du clic sur le bouton flottant
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => LoginPage()),
-            );
-          },
-          child: const Icon(Icons.account_circle), // Icône de compte
-        ),
+        
       ),
     );
   }
