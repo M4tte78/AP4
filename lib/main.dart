@@ -34,7 +34,7 @@ class _HomeState extends State<Home> {
       darkTheme: ThemeData.dark(),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('OmniChat'),
+          title: const Text('OmniBet'),
           centerTitle: true,
           backgroundColor: const Color.fromARGB(255, 13, 67, 246),
         ),
@@ -51,6 +51,9 @@ class _HomeState extends State<Home> {
                       currentAccountPicture: CircleAvatar(
                         backgroundImage: AssetImage('assets/images/astronaut.png'), // image avatar
                       ),
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 13, 67, 246),
+                      )
                     ),
                     ListTile(
                       title: const Text('Profile'),
