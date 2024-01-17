@@ -37,7 +37,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                   width: double.infinity,
                   height: 80,
                   decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
+                    color: Color.fromARGB(255, 13, 67, 246), // Change color here
                     boxShadow: [
                       BoxShadow(
                         blurRadius: 10,
@@ -65,7 +65,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
               IconButton(
                 icon: Icon(
                   Icons.home_rounded,
-                  color: Color(0xFF9299A1),
+                  color: Color.fromARGB(255, 255, 255, 255),
                   size: 24,
                 ),
                 onPressed: () {
@@ -75,7 +75,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
               IconButton(
                 icon: Icon(
                   Icons.chat_bubble_rounded,
-                  color: Color(0xFF9299A1),
+                  color: Color.fromARGB(255, 255, 255, 255),
                   size: 24,
                 ),
                 onPressed: () {
@@ -104,7 +104,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
               IconButton(
                 icon: Icon(
                   Icons.favorite_rounded,
-                  color: Color(0xFF9299A1),
+                  color: Color.fromARGB(255, 255, 255, 255),
                   size: 24,
                 ),
                 onPressed: () {
@@ -114,7 +114,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
               IconButton(
                 icon: Icon(
                   Icons.person,
-                  color: Color(0xFF9299A1),
+                  color: Color.fromARGB(255, 255, 255, 255),
                   size: 24,
                 ),
                 onPressed: () {
