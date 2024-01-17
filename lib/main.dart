@@ -1,19 +1,24 @@
 import 'package:firstapp/bet.dart';
 import 'package:firstapp/login.dart';
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Home(),
+      home: const Home(),
     );
   }
 }
 
 class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -72,8 +77,7 @@ class _HomeState extends State<Home> {
                         // Action à exécuter lors du clic sur le bouton flottant
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => BetPage()));
-                      ;
+                          MaterialPageRoute(builder: (context) => const BetPage()));
                       },
                     ),
                     ListTile(
@@ -92,56 +96,59 @@ class _HomeState extends State<Home> {
                         // ...
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => LoginPage()));Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => LoginPage()));
+                          MaterialPageRoute(builder: (context) => const LoginPage()));
                       },
-                        // Then close the drawer
                     ),
                     // Add more list items here if you want...
                   ],
                 ),
               ),
+          
               // Align the logout and theme buttons to the bottom and left and right side of the drawer
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        // Add your logout logic here
-                      },
-                      child: Icon(Icons.logout),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          if (_themeMode == ThemeMode.light) {
-                            _themeMode = ThemeMode.dark;
-                          } else {
-                            _themeMode = ThemeMode.light;
-                          }
-                        });
-                      },
-                      child: Icon(Icons.brightness_6),
-                    ),
-                  ],
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      // Add your logout logic here
+                    },
+                    child: const Icon(Icons.logout),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        if (_themeMode == ThemeMode.light) {
+                          _themeMode = ThemeMode.dark;
+                        } else {
+                          _themeMode = ThemeMode.light;
+                        }
+                      });
+                    },
+                    child: const Icon(Icons.brightness_6),
+                  ),
+                ],
               ),
             ],
           ),
         ),
-        body: const SingleChildScrollView(
-          child: Center(
-            child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-              ),
-            ),
-          ),
+        body: CarouselSlider(
+          options: CarouselOptions(height: 400.0),
+          items: ['assets/images/basket.jpg', 'assets/images/foot.jpg', 'assets/images/volley.jpg'].map((i) {
+            return Builder(
+              builder: (BuildContext context) {
+                return Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                  decoration: BoxDecoration(
+                    color: Colors.amber,
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Image.asset(i, fit: BoxFit.cover),
+                );
+              },
+            );
+          }).toList(),
         ),
-        
       ),
     );
   }
