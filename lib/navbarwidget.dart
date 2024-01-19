@@ -1,4 +1,6 @@
+import 'package:firstapp/shop.dart';
 import 'package:flutter/material.dart';
+import 'profil.dart';
 
 class NavBarWidget extends StatefulWidget {
   const NavBarWidget({Key? key}) : super(key: key);
@@ -103,12 +105,15 @@ class _NavBarWidgetState extends State<NavBarWidget> {
               ),
               IconButton(
                 icon: Icon(
-                  Icons.favorite_rounded,
+                  Icons.shopping_cart_sharp,
                   color: Color.fromARGB(255, 255, 255, 255),
                   size: 24,
                 ),
                 onPressed: () {
-                  print('IconButton pressed ...');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ShopPage()),
+                  );
                 },
               ),
               IconButton(
@@ -118,7 +123,10 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                   size: 24,
                 ),
                 onPressed: () {
-                  print('IconButton pressed ...');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ProfilPage()),
+                  );
                 },
               ),
             ],
