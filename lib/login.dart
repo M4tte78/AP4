@@ -1,5 +1,7 @@
 // Dans group.dart
 import 'package:flutter/material.dart';
+import 'navbarwidget.dart'; 
+
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -47,6 +49,8 @@ class LoginPage extends StatelessWidget {
         title: const Text('Login Page'),
       ),
       body: body,
+           bottomNavigationBar: NavBarWidget(), 
+
     );
   }
 }

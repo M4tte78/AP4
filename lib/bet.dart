@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'navbarwidget.dart'; 
 
 class BetPage extends StatelessWidget {
   const BetPage({Key? key}) : super(key: key);
@@ -22,6 +23,7 @@ class BetPage extends StatelessWidget {
           child: const Text('Voir les matchs'),
         ),
       ),
+      bottomNavigationBar: NavBarWidget(),  // Ajoutez votre NavBarWidget ici
     );
   }
 
@@ -56,6 +58,7 @@ class BetPage extends StatelessWidget {
           );
         },
       ),
+      bottomNavigationBar: NavBarWidget(),  // Ajoutez votre NavBarWidget ici
     );
   }
 
@@ -69,6 +72,7 @@ class BetPage extends StatelessWidget {
       body: Center(
         child: const Text('Contenu de la page de pari'),
       ),
+      bottomNavigationBar: NavBarWidget(),  // Ajoutez votre NavBarWidget ici
     );
   }
 }

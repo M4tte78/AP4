@@ -1,5 +1,8 @@
+import 'package:firstapp/avantages.dart';
 import 'package:firstapp/bet.dart';
 import 'package:firstapp/login.dart';
+import 'package:firstapp/parrainage.dart';
+import 'package:firstapp/profil.dart';
 import 'package:flutter/material.dart';
 import 'navbarwidget.dart'; 
 
@@ -56,15 +59,19 @@ class _HomeState extends State<Home> {
                       )
                     ),
                     ListTile(
-                      title: const Text('Profile'),
+                      title: const Text('Profil'),
                       onTap: () {
-                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const ProfilPage()));
                       },
                     ),
                     ListTile(
-                      title: const Text('Mes informations'),
+                      title: const Text('Mes avantages'),
                       onTap: () {
-                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const AvantagesPage()));
                       },
                     ),
                     ListTile(
@@ -78,7 +85,9 @@ class _HomeState extends State<Home> {
                     ListTile(
                       title: const Text('Parrainage'),
                       onTap: () {
-                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) =>  ParrainagePage()));
                       },
                     ),
                     ListTile(
