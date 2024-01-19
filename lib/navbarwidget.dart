@@ -71,7 +71,10 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                   size: 24,
                 ),
                 onPressed: () {
-                  print('IconButton pressed ...');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ProfilPage())
+                  );
                 },
               ),
               IconButton(
