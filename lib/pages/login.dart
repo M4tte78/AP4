@@ -1,6 +1,7 @@
 // Dans group.dart
 import 'package:flutter/material.dart';
-import 'navbarwidget.dart'; 
+import 'package:firstapp/components/navbarwidget.dart';
+import 'package:google_fonts/google_fonts.dart'; 
 
 
 class LoginPage extends StatelessWidget {
@@ -46,7 +47,12 @@ class LoginPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login Page'),
+        title: Text('Login', style: GoogleFonts.lemon(
+          fontSize: 24,
+          color: Colors.white,
+        ),),
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 13, 67, 246),
       ),
       body: body,
            bottomNavigationBar: NavBarWidget(), 
