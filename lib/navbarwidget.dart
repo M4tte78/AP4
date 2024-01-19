@@ -1,6 +1,8 @@
+import 'package:firstapp/chat.dart';
 import 'package:firstapp/shop.dart';
 import 'package:flutter/material.dart';
 import 'profil.dart';
+import 'main.dart';
 
 class NavBarWidget extends StatefulWidget {
   const NavBarWidget({Key? key}) : super(key: key);
@@ -73,7 +75,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ProfilPage())
+                    MaterialPageRoute(builder: (context) => MyApp()),
                   );
                 },
               ),
@@ -84,7 +86,10 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                   size: 24,
                 ),
                 onPressed: () {
-                  print('IconButton pressed ...');
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ChatPage()),
+                  );
                 },
               ),
               Column(
