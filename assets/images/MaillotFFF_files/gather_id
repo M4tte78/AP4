@@ -1,1 +1,0 @@
-window.mics&&window.mics._setOperatorId&&mics._setOperatorId('goo',null),window.scimhtiraidem&&window.scimhtiraidem._setOperatorId&&scimhtiraidem._setOperatorId('goo',null)

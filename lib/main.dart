@@ -1,10 +1,11 @@
-import 'package:firstapp/avantages.dart';
-import 'package:firstapp/bet.dart';
-import 'package:firstapp/login.dart';
-import 'package:firstapp/parrainage.dart';
-import 'package:firstapp/profil.dart';
+import 'package:firstapp/components/navbarwidget.dart';
+import 'package:firstapp/pages/avantages.dart';
+import 'package:firstapp/pages/bet.dart';
+import 'package:firstapp/pages/login.dart';
+import 'package:firstapp/pages/parrainage.dart';
+import 'package:firstapp/pages/profil.dart';
 import 'package:flutter/material.dart';
-import 'navbarwidget.dart'; 
+import 'package:google_fonts/google_fonts.dart';
 
 void main() => runApp(const MyApp());
 
@@ -37,22 +38,30 @@ class _HomeState extends State<Home> {
       darkTheme: ThemeData.dark(),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('OmniBet'),
+          title: Text(
+            'OmniBet',
+            style: GoogleFonts.lemon(
+              fontSize: 24,
+              color: Colors.white,
+            ),
+          ),
           centerTitle: true,
           backgroundColor: const Color.fromARGB(255, 13, 67, 246),
         ),
         drawer: Drawer(
-          child: Column(
+  child: Column(
+    children: <Widget>[
+      Expanded(
+        child: Container( // Ajoutez ce widget
+          color: const Color.fromARGB(255, 255, 255, 255), // Définissez la couleur ici
+          child: ListView(
+            padding: EdgeInsets.zero,
             children: <Widget>[
-              Expanded(
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: <Widget>[
-                    const UserAccountsDrawerHeader(
-                      accountName: Text('John Doe'),
-                      accountEmail: Text('Johndoe@example.com'),
-                      currentAccountPicture: CircleAvatar(
-                        backgroundImage: AssetImage('assets/images/astronaut.png'), // image avatar
+              const UserAccountsDrawerHeader(
+                accountName: Text('John Doe'),
+                accountEmail: Text('Johndoe@example.com'),
+                currentAccountPicture: CircleAvatar(
+                  backgroundImage: AssetImage('assets/images/astronaut.png'), // image avatar
                       ),
                       decoration: BoxDecoration(
                         color: Color.fromARGB(255, 13, 67, 246),
@@ -101,6 +110,7 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
+      ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
