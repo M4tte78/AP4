@@ -7,6 +7,8 @@ import '/components/counter_with_fav_btn.dart';
 import '/components/description.dart';
 import '/components/product_title_with_image.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '/components/navbarwidget.dart';
+
 
 class ShopPage extends StatefulWidget {
   @override
@@ -70,7 +72,7 @@ class _ShopPageState extends State<ShopPage> {
   ),
   ];
 
-  @override
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
@@ -81,6 +83,16 @@ class _ShopPageState extends State<ShopPage> {
         ),),
         centerTitle: true,
         backgroundColor: const Color.fromARGB(255, 13, 67, 246),
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: Icon(
+              Icons.shopping_cart_sharp,
+              color: Color.fromARGB(255, 255, 255, 255),
+              size: 24,
+            ),
+            onPressed: () => _scaffoldKey.currentState!.openDrawer(), // Add this line to open the drawer
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -92,7 +104,8 @@ class _ShopPageState extends State<ShopPage> {
               CounterWithFavBtn(),
               AddToCart(
                 product: product,
-                onAdd: () => _scaffoldKey.currentState?.openDrawer(), key: UniqueKey(), onBuy: () {  },
+                onAdd: () => {}, // Empty function for now
+                onBuy: openDrawer, key: UniqueKey(),  // Call openDrawer when the user clicks on the buy button
               ),
             ],
           )).toList(),
@@ -101,6 +114,11 @@ class _ShopPageState extends State<ShopPage> {
       drawer: Drawer(
         child: CartCounter(),
       ),
+      bottomNavigationBar: NavBarWidget(), // Add this line to show the NavBarWidget
     );
+  }
+
+  void openDrawer() {
+    _scaffoldKey.currentState!.openDrawer(); // Use openDrawer instead of openEndDrawer
   }
 }
