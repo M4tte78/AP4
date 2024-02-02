@@ -1,0 +1,1 @@
+!function(t,e,n,c,a,o,s){t[a="batchSDK"]=t[a]||function(){(t[a].q=t[a].q||[]).push(arguments)},o=e.createElement(n),s=e.getElementsByTagName(n)[0],o.async=1,o.src="https://via.batch.com/v3/bootstrap.min.js",s.parentNode.insertBefore(o,s)}(window,document,"script");

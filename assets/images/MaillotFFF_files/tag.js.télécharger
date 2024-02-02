@@ -1,0 +1,192 @@
+(function(window){
+  // params
+  var campaign_ids = '0';
+  var callref = 'decathlon';
+   var actions = JSON.parse('{"duration":{"values":[10000,90000],"ids":[1,3]},"nbpages":{"values":[],"ids":[]}}');
+  // 3 hours
+  var cookieTtlInMs = 3 * 60 * 60 * 1000;
+   var page = '';
+
+   
+  var document = window.document;
+
+  var getParameterByName = function (name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  }
+  var qs = function(obj) {
+    var items = [];
+    for ( var key in obj) {
+	    var pair = [ encodeURIComponent(key), encodeURIComponent(obj[key]) ];
+	    items.push(pair.join('='));
+    }
+    return items.join('&');
+  }
+  var imgXHR = function(url, params) {
+    params = params || {};
+    params['page'] = page || encodeURIComponent(window.location.href);
+    params['t'] = (new Date).getTime();
+    var join = url.indexOf('?') != -1 ? '&' : '?';
+    params = params ? join + qs(params) : '';
+    var img = document.createElement('img');
+    img.setAttribute('src', url + params);
+    img.setAttribute('style',
+		    'position:absolute;top:0;left:0;opacity:0;width:1px;height:1px');
+    img.addEventListener('load', function(e) {
+	    e.target.parentNode.removeChild(img)
+    });
+    img.addEventListener('error', function(e) {
+	    e.target.parentNode.removeChild(img)
+    });
+    document.body.appendChild(img);
+  }
+  var createCookie = function(name, value, expireMs) {
+      var expires;
+      if (expireMs) {
+	  var date = new Date();
+	  date.setTime(date.getTime() + expireMs);
+	  expires = "; expires=" + date.toGMTString();
+      }
+      else {
+	  expires = "";
+      }
+      document.cookie = name + "=" + value + expires + "; path=/";
+  }
+  var getCookie = function(c_name) {
+      if (document.cookie.length > 0) {
+	  c_start = document.cookie.indexOf(c_name + "=");
+	  if (c_start != -1) {
+	      c_start = c_start + c_name.length + 1;
+	      c_end = document.cookie.indexOf(";", c_start);
+	      if (c_end == -1) {
+		  c_end = document.cookie.length;
+	      }
+	      return unescape(document.cookie.substring(c_start, c_end));
+	  }
+      }
+      return "";
+  }
+
+   var cookieName = 'mobsuccess.com_tag_js_v2_'+callref+'_'+campaign_ids;
+  //createCookie(cookieName, '', cookieTtlInMs);
+  var createDurationTagCookie = function(clickid,actionsOk,duration,nbpages) {
+    var value = JSON.stringify({
+      clickid: clickid,
+      actionsOk: actionsOk,
+      duration: duration,
+      nbpages: nbpages
+    });
+    createCookie(cookieName, value, cookieTtlInMs);
+  }
+  var getCookieClickid = function() {
+    try{
+      var object = JSON.parse(getCookie(cookieName));
+      return object.clickid || null;
+    }catch(e){
+      return null;
+    }
+  }
+  var getCookieActionsOK = function() {
+    try{
+      var object = JSON.parse(getCookie(cookieName));
+      return object.actionsOk || null;
+    }catch(e){
+      return null;
+    }
+  }
+  var getCookieDuration = function() {
+    try{
+      var object = JSON.parse(getCookie(cookieName));
+      return object.duration || null;
+    }catch(e){
+      return null;
+    }
+  }
+  var getCookieNbpages = function() {
+    try{
+      var object = JSON.parse(getCookie(cookieName));
+      return object.nbpages || null;
+    }catch(e){
+      return null;
+    }
+  }
+  var getDurationSincePageLoad = function() {
+    try{
+      return (Date.now() - window.performance.timing.navigationStart) || 0;
+    }catch(e){
+      return 0;
+    }
+  }
+  var clickid = getParameterByName('clickid') || getCookieClickid();
+  var actionsOk = getCookieActionsOK() || {
+    duration:[],
+    nbpages:[]
+  };
+  var duration = getCookieDuration();
+  if(!duration || duration<0 || duration>cookieTtlInMs){
+    start = Date.now();
+    duration = 0;
+  }else{
+    start = Date.now()-duration;
+  }
+  if(actions.durationSincePageLoad) {
+    duration += getDurationSincePageLoad();
+  }
+  var nbpages = getCookieNbpages()+1;
+  if(clickid){
+    createDurationTagCookie(clickid,actionsOk,duration,nbpages);
+    var tag = 'https://www.mobsuccess.com/tracking/clickid/conversion/'+callref+'/'+campaign_ids+'/';
+    tag += '?clickid='+clickid;
+  }else{
+    var tag = 'https://www.mobsuccess.com/tracking/cookie/conversion/'+callref+'/'+campaign_ids+'/';
+  }
+  var isNecessary = function(){
+    return duration<=actions.duration.values[actions.duration.values.length-1]
+	    || nbpages<=actions.nbpages.values[actions.nbpages.values.length-1];
+  }
+  if(isNecessary()){
+    //verif duration
+    var i;
+    var interval = setInterval(function(){
+      duration = Date.now()-start;
+      for(i=0;i<actions.duration.values.length;i++){
+		if(duration>=actions.duration.values[i]){
+		  if(!actionsOk.duration[i]){
+		    actionsOk.duration[i] = true;
+		    imgXHR(tag, {
+		      'action': actions.duration.ids[i] || 0,
+		      'duration': actions.duration.values[i],
+		      'nbpages': nbpages
+		    });
+		  }
+		}
+      }
+      createDurationTagCookie(clickid,actionsOk,duration,nbpages);
+      if(!isNecessary()){
+	clearInterval(interval);
+      }
+    }, 100);
+    //verif nbpages
+    for(i=0;i<actions.nbpages.values.length;i++){
+      if(nbpages>=actions.nbpages.values[i]){
+		if(!actionsOk.nbpages[i]){
+		  actionsOk.nbpages[i] = true;
+		  imgXHR(tag, {
+		    'action': actions.nbpages.ids[i] || 0,
+		    'nbpages': actions.nbpages.values[i],
+		    'duration': duration
+		  });
+		}
+      }
+    }
+    createDurationTagCookie(clickid,actionsOk,duration,nbpages);
+  }
+  window.mobsuccess_callback = function (action){
+	  imgXHR(tag, {
+	    'action': action
+	  });
+  }
+ 
+})(window);

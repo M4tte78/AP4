@@ -1,0 +1,161 @@
+var DeviceType = {
+  IOS : 'iOS',
+  Android : "Android",
+  Windows : "WindowsPhone",
+  Unknown : "Unknown"
+};
+
+/*
+ Javascript bridge syntaxe : window.webkit.messageHandlers.{NAME}.postMessage()
+ or
+ Javascript bridge syntaxe : window.webkit.messageHandlers.{NAME}.postMessage({MESSAGE_BODY})
+*/
+
+/**
+ * Send an event to mobile app to close the webview
+ *
+ */
+function appNativeContinueShopping() {
+  // continueShopping is the name of the event.
+  //postMessage contains some parameters
+  var deviceOS = getMobileOperatingSystem()
+  if (deviceOS == DeviceType.iOS) {
+    webkit.messageHandlers.continueShopping.postMessage("none")
+  } else if (deviceOS == DeviceType.Android) {
+    AndroidCart.continueShopping()
+  }
+   
+}
+/**
+ * Takes a an articleId as parameter and send an action to mobile app to remove product from cart
+ *
+ * @param {number} articleId - The article Id
+ * @return {number}
+ */
+function appNativeRemoveProduct(articleId) {
+    var deviceOS = getMobileOperatingSystem()
+    if (deviceOS == DeviceType.iOS) {
+      webkit.messageHandlers.removeProduct.postMessage(articleId)
+    } else if (deviceOS == DeviceType.Android) {
+      AndroidCart.removeProduct(articleId)
+    }
+}
+/**
+ * Takes a an articleId and a quantity as parameter and send an action to mobile app
+ * to update the quantity of a specific product
+ *
+ * @param {number} articleId - The article Id
+ * @param {number} newQuantity - The new quantity
+ */
+function appNativeUpdateQuantity(articleId, newQuantity) {
+    var deviceOS = getMobileOperatingSystem()
+    if (deviceOS == DeviceType.iOS) {
+      webkit.messageHandlers.updateQuantity.postMessage(articleId + ";" + newQuantity)
+    } else if (deviceOS == DeviceType.Android) {
+      AndroidCart.updateQuantity(articleId, newQuantity)
+    }
+}
+
+// Confirmation
+/**
+ * Tell the mobile app that the EReservation has been confirmed in a specific
+ * store
+ * @param {number} storeId - The store Id
+ */
+function appNativeEReservationHasBeenConfirmed(storeId) {
+  console.log("[MobileBridge] EndOfTunnel EResa : " + storeId)
+   var deviceOS = getMobileOperatingSystem()
+    if (deviceOS == DeviceType.iOS) {
+      webkit.messageHandlers.endOfTunnelEresa.postMessage(storeId)
+    } else if (deviceOS == DeviceType.Android) {
+      AndroidCart.endOfTunnelEresa(storeId)
+    }
+}
+/**
+ * Tell the mobile app that the ECommerce has been confirmed with a specific
+ * order number
+ *
+ * @param {number} orderNumber - The orderNumber
+ * @param {number} qty - The quantity of products bought (cast to Int in the app)
+ * @param {number} amount - The cart total amount (cast to Double in the app)
+ */
+function appNativeECommerceOrderHasBeenConfirmed(orderNumber, qty, amount) {
+  console.log("[MobileBridge] EndOfTunnel : " + orderNumber)
+  var deviceOS = getMobileOperatingSystem()
+  if (deviceOS == DeviceType.iOS) {
+    webkit.messageHandlers.endOfTunnel.postMessage(orderNumber + ";" + qty + ";" + amount)
+  } else if (deviceOS == DeviceType.Android) {
+    try{
+    AndroidCart.endOfTunnelv2(orderNumber, qty, amount)
+    } catch {
+      AndroidCart.endOfTunnel(orderNumber)
+    }
+  }
+}
+
+/**
+ * Tell the mobile app that the in store order has been confirmed with a specific
+ * order number and store id
+ *
+ * @param {number} orderNumber - The orderNumber
+ * @param {number} storeId - The store id
+ */
+function appNativeInStoreOrderHasBeenConfirmed(orderNumber, storeId) {
+}
+
+// Errors
+/**
+ * Tell the mobile app that an error has been occurred
+ *
+ * @param {errorCode} errorCode - The error code
+ */
+function appNativeErrorHasBeenOccurred(errorCode) {
+    var deviceOS = getMobileOperatingSystem()
+    if (deviceOS == DeviceType.iOS) {
+      webkit.messageHandlers.errorHasBeenOccurred.postMessage(errorCode)
+    } else if (deviceOS == DeviceType.Android) {
+      //TO DO
+    }
+}
+
+// Errors
+/**
+ * Tell the mobile app to open the native connection view
+ *
+ */
+
+function appNativeLogin() {
+  var deviceOS = getMobileOperatingSystem()
+  if (deviceOS == DeviceType.iOS) {
+    webkit.messageHandlers.openLogin.postMessage("none")
+  } else if (deviceOS == DeviceType.Android) {
+    Android.appNativeLogin()
+  }
+  // Nothing to do
+}
+
+//---------- HELPERS ----------------//
+/**
+ * Determine the mobile operating system.
+ * This function returns one of 'iOS', 'Android', 'Windows Phone', or 'unknown'.
+ *
+ * @returns {String}
+ */
+function getMobileOperatingSystem() {
+  var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      // Windows Phone must come first because its UA also contains "Android"
+    if (/windows phone/i.test(userAgent)) {
+        return DeviceType.WindowsPhone
+    }
+
+    if (/android/i.test(userAgent)) {
+        return DeviceType.Android
+    }
+
+    // iOS detection from: http://stackoverflow.com/a/9039885/177710
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        return DeviceType.iOS
+    }
+
+    return DeviceType.Unknown
+}
