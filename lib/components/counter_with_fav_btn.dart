@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'cart_counter.dart';
+// import 'cart_counter.dart';
 
 class CounterWithFavBtn extends StatelessWidget {
   @override
@@ -9,7 +9,7 @@ class CounterWithFavBtn extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        CartCounter(),
+        // CartCounter(),
         Container(
           padding: EdgeInsets.all(8),
           height: 32,

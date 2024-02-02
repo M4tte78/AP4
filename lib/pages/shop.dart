@@ -14,33 +14,66 @@ class ShopPage extends StatefulWidget {
 }
 
 class _ShopPageState extends State<ShopPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   // Assume you have a list of products for demonstration
   final List<Product> products;
 
   _ShopPageState() : products = [
     Product(
       id: 1,
+      title: "Office Code",
+      price: 234,
+      size: 12,
+      description: dummyText,
       image: "assets/images/bag_1.png",
-      title: "Example Product",
-      description: "This is an example product",
-      size: 12,
-      price: 29,
-      color: Colors.red,
-    ),
-    Product(
+      color: Color(0xFF3D82AE)),
+  Product(
       id: 2,
+      title: "Belt Bag",
+      price: 234,
+      size: 8,
+      description: dummyText,
       image: "assets/images/bag_2.png",
-      title: "Example Product 2",
-      description: "This is another example product",
+      color: Color(0xFFD3A984)),
+  Product(
+      id: 3,
+      title: "Hang Top",
+      price: 234,
+      size: 10,
+      description: dummyText,
+      image: "assets/images/bag_3.png",
+      color: Color(0xFF989493)),
+  Product(
+      id: 4,
+      title: "Old Fashion",
+      price: 234,
+      size: 11,
+      description: dummyText,
+      image: "assets/images/bag_4.png",
+      color: Color(0xFFE6B398)),
+  Product(
+      id: 5,
+      title: "Office Code",
+      price: 234,
       size: 12,
-      price: 29,
-      color: Colors.blue,
-    ),
+      description: dummyText,
+      image: "assets/images/bag_5.png",
+      color: Color(0xFFFB7883)),
+  Product(
+    id: 6,
+    title: "Office Code",
+    price: 234,
+    size: 12,
+    description: dummyText,
+    image: "assets/images/bag_6.png",
+    color: Color(0xFFAEAEAE),
+  ),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text('Boutique', style: GoogleFonts.lemon(
           fontSize: 24,
@@ -57,11 +90,16 @@ class _ShopPageState extends State<ShopPage> {
               ColorAndSize(product: product),
               Description(product: product),
               CounterWithFavBtn(),
-              AddToCart(product: product),
-              CartCounter(),
+              AddToCart(
+                product: product,
+                onAdd: () => _scaffoldKey.currentState?.openDrawer(), key: UniqueKey(), onBuy: () {  },
+              ),
             ],
           )).toList(),
         ),
+      ),
+      drawer: Drawer(
+        child: CartCounter(),
       ),
     );
   }

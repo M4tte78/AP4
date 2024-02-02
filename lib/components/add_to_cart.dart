@@ -5,9 +5,17 @@ import 'package:firstapp/models/Product.dart';
 import '../../../constants.dart';
 
 class AddToCart extends StatelessWidget {
-  const AddToCart({super.key, required this.product});
-
   final Product product;
+  final VoidCallback onAdd;
+  final VoidCallback onBuy;
+
+  const AddToCart({
+    required Key key,
+    required this.product,
+    required this.onAdd,
+    required this.onBuy,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -29,12 +37,12 @@ class AddToCart extends StatelessWidget {
                 "assets/icons/add_to_cart.svg",
                 colorFilter: ColorFilter.mode(product.color, BlendMode.srcIn),
               ),
-              onPressed: () {},
+              onPressed: onAdd,
             ),
           ),
           Expanded(
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: onBuy,
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(double.infinity, 48),
                 shape: RoundedRectangleBorder(

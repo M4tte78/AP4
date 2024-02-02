@@ -72,7 +72,8 @@ class DetailsScreen extends StatelessWidget {
                         SizedBox(height: kDefaultPaddin / 2),
                         CounterWithFavBtn(),
                         SizedBox(height: kDefaultPaddin / 2),
-                        AddToCart(product: product)
+                        AddToCart(product: product, onAdd: () {}, key: Key('cart'), onBuy: () {  },
+                        ),
                       ],
                     ),
                   ),
