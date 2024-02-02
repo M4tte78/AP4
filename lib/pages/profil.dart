@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firstapp/components/navbarwidget.dart';
-import 'package:firstapp/components/appbar.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ProfilPage extends StatelessWidget {
   const ProfilPage({Key? key}) : super(key: key);
@@ -8,10 +8,14 @@ class ProfilPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: CustomAppBar(
-    title: 'Boutique',
-    onPressed: () => _scaffoldKey.currentState!.openDrawer(),
-  ),
+      appBar: AppBar(
+        title: Text('Profil', style: GoogleFonts.lemon(
+          fontSize: 24,
+          color: Colors.white,
+        ),),
+        centerTitle: true,
+        backgroundColor: const Color.fromARGB(255, 13, 67, 246),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
