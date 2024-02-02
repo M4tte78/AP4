@@ -1,6 +1,9 @@
+
+
 import '/pages/chat.dart';
 import '/pages/shop.dart';
-import '/zombie.dart';
+import '/pages/api.dart';
+// import '/zombie.dart';
 import 'package:flutter/material.dart';
 import '../pages/profil.dart';
 import '../main.dart';
@@ -93,27 +96,21 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                   );
                 },
               ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.add,
-                        color: Colors.white,
-                        size: 30,
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ZombieHomePage()),
-                  );
-                      },
-                    ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                    size: 30,
                   ),
-                ],
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ApiPage()),
+                    );
+                  },
+                ),
               ),
               IconButton(
                 icon: Icon(

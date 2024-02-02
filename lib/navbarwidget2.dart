@@ -1,8 +1,7 @@
-import 'package:firstapp/chat.dart';
-import 'package:firstapp/shop.dart';
+import 'package:firstapp/pages/chat.dart';
 import 'package:firstapp/zombie.dart';
 import 'package:flutter/material.dart';
-import 'profil.dart';
+import 'pages/profil.dart';
 import 'main.dart';
 
 class NavBarWidget2 extends StatefulWidget {
@@ -124,7 +123,7 @@ class _NavBarWidgetState extends State<NavBarWidget2> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ShopPage()),
+                    MaterialPageRoute(builder: (context) => MyApp()),
                   );
                 },
               ),
