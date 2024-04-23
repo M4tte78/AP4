@@ -3,7 +3,6 @@
 import '/pages/chat.dart';
 import '/pages/shop.dart';
 import '/pages/api.dart';
-// import '/zombie.dart';
 import 'package:flutter/material.dart';
 import '../pages/profil.dart';
 import '../main.dart';

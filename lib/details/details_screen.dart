@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:firstapp/constants.dart';
 import 'package:firstapp/models/Product.dart';
-
 import '/components/add_to_cart.dart';
-import '/components/color_and_size.dart';
 import '/components/counter_with_fav_btn.dart';
 import '/components/description.dart';
 import '/components/product_title_with_image.dart';
@@ -18,10 +16,7 @@ class DetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
-      // each product have a color
-      backgroundColor: product.color,
       appBar: AppBar(
-        backgroundColor: product.color,
         elevation: 0,
         leading: IconButton(
           icon: SvgPicture.asset(
@@ -66,7 +61,6 @@ class DetailsScreen extends StatelessWidget {
                     ),
                     child: Column(
                       children: <Widget>[
-                        ColorAndSize(product: product),
                         SizedBox(height: kDefaultPaddin / 2),
                         Description(product: product),
                         SizedBox(height: kDefaultPaddin / 2),
