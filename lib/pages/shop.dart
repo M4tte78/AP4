@@ -1,9 +1,10 @@
+import 'package:firstapp/models/Product.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import '/components/navbarwidget.dart';
-import '/models/Product.dart';
+
 
 class ShopPage extends StatefulWidget {
   @override

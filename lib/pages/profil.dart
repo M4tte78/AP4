@@ -97,6 +97,7 @@ Future<void> updateUser(String imageName) async {
 
   @override
   Widget build(BuildContext context) {
+    var _scaffoldKey;
     return Scaffold(
       appBar: AppBar(
         title: Text(
