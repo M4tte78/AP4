@@ -148,51 +148,49 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
   String errorMessage = '';
 
-  void login(BuildContext context) async {
-    // Vérifiez si les champs sont vides
-    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
-      setState(() {
-        errorMessage = 'Veuillez remplir tous les champs';
-      });
-      return; // Sortez de la fonction si les champs sont vides
-    }
-
-    final response = await http.post(
-      Uri.parse('http://localhost:8080/mobileuser/login'), // Remplacez par l'URL de votre API
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'email': _emailController.text,
-        'password': _passwordController.text, // Assurez-vous que votre API attend un mot de passe en clair et non un hash
-      }),
-    );
-
-    if (response.statusCode == 200) {
-      // Si le serveur retourne une réponse OK, parsez le JSON.
-      var data = jsonDecode(response.body);
-      // Utilisez les données comme vous le souhaitez
-
-      // Redirection vers la page d'accueil après une connexion réussie
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
-      );
-    } else {
-      // Si le serveur ne retourne pas une réponse OK,
-      // vous pouvez lancer une exception.
-      setState(() {
-        errorMessage = 'Échec de la connexion';
-      });
-
-      // Effacer le message d'erreur après 5 secondes
-      Timer(Duration(seconds: 5), () {
-        setState(() {
-          errorMessage = '';
-        });
-      });
-    }
+void login(BuildContext context) async {
+  // Vérifiez si les champs sont vides
+  if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+    setState(() {
+      errorMessage = 'Veuillez remplir tous les champs';
+    });
+    return; // Sortez de la fonction si les champs sont vides
   }
+
+  final response = await http.post(
+    Uri.parse('http://localhost:8080/mobileuser/login'), // Remplacez par l'URL de votre API
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, String>{
+      'email': _emailController.text,
+      'password': _passwordController.text, // Assurez-vous que votre API attend un mot de passe en clair et non un hash
+    }),
+  );
+
+  if (response.statusCode == 200) {
+    // Si le serveur retourne une réponse OK, parsez le JSON.
+    var data = jsonDecode(response.body);
+    // Utilisez les données comme vous le souhaitez
+
+    // Redirection vers la page d'accueil après une connexion réussie
+    Navigator.pushReplacementNamed(context, '/accueil');
+  } else {
+    // Si le serveur ne retourne pas une réponse OK,
+    // vous pouvez lancer une exception.
+    setState(() {
+      errorMessage = 'Échec de la connexion';
+    });
+
+    // Effacer le message d'erreur après 5 secondes
+    Timer(Duration(seconds: 5), () {
+      setState(() {
+        errorMessage = '';
+      });
+    });
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {

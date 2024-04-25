@@ -16,14 +16,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: const RegisterPage(),
       // Routes pour d'autres pages
-      routes: {
-        '/login': (context) => LoginPage(),
-        '/profil': (context) => const ProfilPage(),
-        '/avantages': (context) => const AvantagesPage(),
-        '/bet': (context) => const BetPage(),
-        '/parrainage': (context) => ParrainagePage(),
-        '/accueil': (context) => const HomePage(),
-      },
+  routes: {
+  '/login': (context) => LoginPage(),
+  '/profil': (context) => const ProfilPage(),
+  '/avantages': (context) => const AvantagesPage(),
+  '/bet': (context) => const BetPage(),
+  '/parrainage': (context) => ParrainagePage(),
+  '/accueil': (context) => const HomePage(),
+},
+
     );
   }
 }
